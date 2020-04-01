@@ -34,12 +34,13 @@ class PiTempLogic(object):
     def getTemp(self):
         #read temp
         rawOutput = subprocess.check_output(['vcgencmd', 'measure_temp'])
-        startIndex = rawOutput.find('=')
-        stopIndex = rawOutput.find('\'')
+        output = str(rawOutput)
+        startIndex = output.find("=")
+        stopIndex = output.find("\'")
         if startIndex == -1 or stopIndex == -1:
             return None
         try:
-            return float(rawOutput[startIndex + 1 : stopIndex])
+            return float(output[startIndex + 1 : stopIndex])
         except ValueError:
             return None
 
